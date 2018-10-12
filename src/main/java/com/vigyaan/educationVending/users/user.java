@@ -1,6 +1,5 @@
 package com.vigyaan.educationVending.users;
 
-import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Email;
 import javax.persistence.Column;
@@ -14,9 +13,9 @@ import javax.persistence.Entity;
 @Entity
 @Table(name = "users")
 public class user {
-    @Id
+    @Id		//primary key
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable=false, nullable=false)
     private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -25,7 +24,6 @@ public class user {
   	private String email;
 
     @Column(name = "password")
-  	@Transient
   	private String password;
 
     @Column(name = "first_name")
@@ -40,19 +38,10 @@ public class user {
     private String lastName;
 
 
-
-  	/**
-  	* Returns value of id
-  	* @return
-  	*/
   	public Long getId() {
   		return id;
   	}
 
-  	/**
-  	* Sets new value of id
-  	* @param
-  	*/
   	public void setId(Long id) {
   		this.id = id;
   	}
