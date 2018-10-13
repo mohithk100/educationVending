@@ -13,8 +13,7 @@ public class UserService {
 	private UserRepository user_repo;
     
 	//user list - data obtained from database
-   // List<user> ulist = new ArrayList<>();
-	
+   
 	public List<user> getAllUsers() {
 		
 		List<user> ulist = new ArrayList<>();
@@ -25,7 +24,6 @@ public class UserService {
 	}
 
 	public void addUser(user u) {
-		System.out.println(u.getPassword()+"      +++++++++++++++++++++++++++++++++");
 		user_repo.save(u);
 		
 	}

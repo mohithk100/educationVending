@@ -1,6 +1,12 @@
 package com.vigyaan.educationVending.users;
 
 import javax.validation.constraints.NotEmpty;
+
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import javax.validation.constraints.Email;
 import javax.persistence.Column;
 import javax.persistence.Table;
@@ -24,6 +30,7 @@ public class user {
   	private String email;
 
     @Column(name = "password")
+    @JsonProperty(access = Access.WRITE_ONLY)
   	private String password;
 
     @Column(name = "first_name")
@@ -74,10 +81,25 @@ public class user {
   	* Sets new value of password
   	* @param
   	*/
+  	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  	
   	public void setPassword(String password) {
-  		this.password = password;
+  		this.password = hashPassword(password);
   	}
-
+  		
+  	private String hashPassword(String plainTextPassword){
+		return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+	}
+  	
+  	/*
+  	private void checkPass(String plainPassword, String hashedPassword) {
+		if (BCrypt.checkpw(plainPassword, hashedPassword))
+			System.out.println("The password matches.");
+		else
+			System.out.println("The password does not match.");
+	}*/
+  	
+  	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   	/**
   	* Returns value of firstName
   	* @return
